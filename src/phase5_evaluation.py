@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage.transform import iradon
-from skimage.metrics import structural_similarity as ssim, peak_signal_noise_ratio as psnr, mean_squared_error
+from skimage.metrics import structural_similarity as ssim, mean_squared_error
 
 x_true = np.load('results/p2_results/x_true.npy')
 sino_clean = np.load('results/p2_results/sino_clean.npy')
@@ -23,18 +23,17 @@ def evaluate(name, x_est):
     mask = (x_grid - 255.5)**2 + (y_grid - 255.5)**2 <= 255**2
     
     rmse = np.sqrt(mean_squared_error(x_true[mask], x_est[mask]))
-    psnr_val = psnr(x_true[mask], x_est[mask], data_range=x_true.max())
     ssim_val = ssim(x_true[mask], x_est[mask], data_range=x_true.max())
     
-    print(f"{name:<35} | RMSE: {rmse:.4f} | PSNR: {psnr_val:.2f} | SSIM: {ssim_val:.4f}")
-    return rmse, psnr_val, ssim_val
+    print(f"{name:<35} | RMSE: {rmse:.4f} | SSIM: {ssim_val:.4f}")
+    return rmse, ssim_val
 
 
 print("FINAL EVALUATION RESULTS")
 
 evaluate("Oracle FBP", x_oracle)
 evaluate("Raw Noisy FBP", x_noisy)
-evaluate("WLS-TV [Ours] (Sinogram Domain)", x_ours)
+evaluate("WLS-TV [Ours] ", x_ours)
 
 
 fig, axes = plt.subplots(2, 3, figsize=(18, 12))
@@ -68,7 +67,7 @@ axes[1,2].legend()
 axes[1,2].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('results/final_results.png', dpi=150)
+plt.savefig('results/p5_results/final_results.png', dpi=150)
 plt.show()
 
 print("\nSaved final_results.png")

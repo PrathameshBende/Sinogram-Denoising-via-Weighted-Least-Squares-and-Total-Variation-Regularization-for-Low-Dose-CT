@@ -22,10 +22,10 @@ sino_clean = radon(x_true, theta=angles, circle=True)
 
 print(f"Physical Scaling Applied:")
 print(f"   Scaling factor: {scaling_factor:.4f}")
-print(f"   I0: 5e4 photons | rho_e: {5.0}")
+print(f"   I0: 1e3 photons | sigma_e: {5.0}")
 
 # Low-Dose Physics Simulation
-def simulate_low_dose(sino_clean, I0=5e4, sigma_e=5.0, seed=42):
+def simulate_low_dose(sino_clean, I0=1e3, sigma_e=5.0, seed=42):
     """
     Simulates photon-counting detector measurements.
     Model: y ~ Poisson(I0 * exp(-l)) + N(0, sigma_e^2)
@@ -94,7 +94,7 @@ axes[0,1].set_title(f'Clean Sinogram\nMax l: {sino_clean.max():.2f}')
 axes[0,1].axis('off')
 
 axes[0,2].imshow(sino_noisy, cmap='gray', aspect='auto')
-axes[0,2].set_title('Noisy Sinogram (I0=5e4)')
+axes[0,2].set_title('Noisy Sinogram (I0=1e3)')
 axes[0,2].axis('off')
 
 axes[1,0].imshow(x_noisy, cmap='gray')
