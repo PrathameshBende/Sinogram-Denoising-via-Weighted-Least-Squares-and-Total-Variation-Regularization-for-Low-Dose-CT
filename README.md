@@ -1,0 +1,1 @@
+A 5-phase computational pipeline for simulating, modeling, and denoising low-dose X-ray computed tomography (CT) data. The project implements a Bayesian MAP estimation framework combining a Poisson-Gaussian noise model with Weighted Least Squares (WLS) data fidelity and Total Variation (TV) edge-preserving regularization.
